@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -61,17 +62,19 @@ fun AddNotesScreen(
                 onValueChange = { state.title.value = it },
                 textStyle = TextStyle(
                     fontSize = 17.sp
-                )
+                ),
+                placeholder = { Text(text = "Enter title")}
             )
-            BasicTextField(
+            TextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                value = state.title.value,
-                onValueChange = { state.title.value = it },
+                value = state.description.value,
+                onValueChange = { state.description.value = it },
                 textStyle = TextStyle(
                     fontSize = 17.sp
-                )
+                ),
+                placeholder =  { Text(text = "Description")}
 
             )
 

@@ -98,7 +98,7 @@ fun NotesScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-            items(state.notes.size) {
+            items(state.notes.size) {index->
                 NoteItem(state = state, index = index, onEvent = onEvent)
             }
 
