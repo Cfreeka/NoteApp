@@ -7,5 +7,6 @@ import com.example.noteapp.Database.Note
 data class NoteState(
     val title: MutableState<String> = mutableStateOf(""),
     val description: MutableState<String> = mutableStateOf(""),
-    val notes: List<Note> = emptyList()
+    val notes: List<Note> = emptyList(),
+    val isDeletingNote: Boolean = false
 )

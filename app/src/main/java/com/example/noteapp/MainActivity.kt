@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                                 state = state,
                                 navController = navController,
                                 onEvent = viewModel::onEvent,
-                                index = 0
+
                             )
                         }
                         composable("AddNotesScreen") {

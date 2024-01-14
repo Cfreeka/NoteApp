@@ -67,6 +67,19 @@ class NotesViewModel(
             NotesEvent.SortNotes -> {
                 isSortedByDateAdded.value = !isSortedByDateAdded.value
             }
+
+            NotesEvent.HideDialog -> {
+                _state.update {
+                    it.copy(isDeletingNote = false)
+                }
+
+            }
+            NotesEvent.ShowDialog -> {
+                _state.update{
+                    it.copy(isDeletingNote = true)
+                }
+
+            }
         }
 
     }

@@ -1,6 +1,7 @@
 package com.example.noteapp.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,8 +42,6 @@ fun NotesScreen(
     state: NoteState,
     navController: NavController,
     onEvent: (NotesEvent) -> Unit,
-    index: Int
-
 ) {
     Scaffold(
         topBar = {
@@ -98,8 +97,13 @@ fun NotesScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
 
         ) {
-            items(state.notes.size) {index->
-                NoteItem(state = state, index = index, onEvent = onEvent)
+            items(state.notes.size) { index ->
+                NoteItem(
+                    state = state,
+                    index = index,
+                    onEvent = onEvent,
+                    navController = navController
+                )
             }
 
 
@@ -113,16 +117,26 @@ fun NotesScreen(
 fun NoteItem(
     state: NoteState,
     index: Int,
+    navController: NavController,
     onEvent: (NotesEvent) -> Unit
 ) {
+    if (state.isDeletingNote) {
+        DeleteDialog(state = state, index = index, onEvent = onEvent, note = state.notes[index])
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(12.dp)
+            .clickable {
+                state.title.value =state.notes[index].title
+                state.description.value = state.notes[index].description
+                navController.navigate("AddNotesScreen")
+            }
 
     ) {
+
         Column(
             modifier = Modifier.weight(1f)
         ) {
@@ -130,20 +144,23 @@ fun NoteItem(
                 text = state.notes[index].title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                maxLines = 1,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = state.notes[index].description,
                 fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                maxLines = 1
 
-                )
+            )
 
         }
 
+
         IconButton(onClick = {
-            onEvent(NotesEvent.DeleteNote(state.notes[index]))
+           onEvent(NotesEvent.ShowDialog)
 
         }) {
             Icon(

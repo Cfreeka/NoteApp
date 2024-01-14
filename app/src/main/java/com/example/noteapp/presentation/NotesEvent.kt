@@ -12,5 +12,7 @@ sealed interface NotesEvent{
         val title: String,
         val description: String
     ): NotesEvent
+    object ShowDialog : NotesEvent
+    object HideDialog : NotesEvent
 
 }
