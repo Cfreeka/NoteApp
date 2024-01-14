@@ -121,7 +121,7 @@ fun NoteItem(
     onEvent: (NotesEvent) -> Unit
 ) {
     if (state.isDeletingNote) {
-        DeleteDialog(state = state, index = index, onEvent = onEvent, note = state.notes[index])
+        DeleteDialog(state = state, index = index, onEvent = onEvent)
     }
     Row(
         modifier = Modifier

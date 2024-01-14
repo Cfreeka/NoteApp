@@ -11,7 +11,6 @@ import com.example.noteapp.Database.Note
 fun DeleteDialog(
     state: NoteState,
     index: Int,
-    note: Note,
     onEvent: (NotesEvent)-> Unit
 ) {
     AlertDialog(
@@ -31,7 +30,8 @@ fun DeleteDialog(
         onDismissRequest = {onEvent(NotesEvent.HideDialog) },
         confirmButton = {
             Button(onClick = {
-                onEvent(NotesEvent.DeleteNote(note))
+                onEvent(NotesEvent.DeleteNote(state.notes[index]))
+                onEvent(NotesEvent.HideDialog)
 
             }) {
                 Text(text = "Yes")
